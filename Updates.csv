@@ -1,0 +1,11 @@
+URL, Destination, Add-Headers, Headers
+https://raw.githubusercontent.com/sapics/ip-location-db/main/geolite2-country/geolite2-country-ipv4.csv, Data/SubsiteData/My-IP/IP-Location.csv, true, "Start IP, End IP, Country"
+https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt, Data/SubsiteData/VPN-Check/clarketm_raw.txt-proxy, false, ""
+https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks4.txt, Data/SubsiteData/VPN-Check/TheSpeedX_socks4-proxy.txt, false, ""
+https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/socks5.txt, Data/SubsiteData/VPN-Check/TheSpeedX_socks5-proxy.txt, false, ""
+https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt, Data/SubsiteData/VPN-Check/TheSpeedX_http-proxy.txt, false, ""
+https://raw.githubusercontent.com/X4BNet/lists_vpn/main/output/datacenter/ipv4.txt, Data/SubsiteData/VPN-Check/X4BNet_ipv4-vpn.txt, false, ""
+http://www.vpngate.net/api/iphone/, Data/SubsiteData/VPN-Check/vpngate-vpn.csv, false, ""
+https://raw.githubusercontent.com/youngjun-chang/VPNs/master/vpn-ipv4.txt, Data/SubsiteData/VPN-Check/youngjun-chang-ipv4-vpn.txt, false, ""
+https://raw.githubusercontent.com/Uvansankar2003/VPN-IP-LIST-Simple-IP-detector/main/blocklist_ip.txt, Data/SubsiteData/VPN-Check/Uvansankar2003-IP-Detecor.txt, false, ""
+https://raw.githubusercontent.com/az0/vpn_ip/main/data/output/ip.txt, Data/SubsiteData/VPN-Check/az0-vpn-ip-list.txt, false, ""

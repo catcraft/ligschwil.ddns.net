@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My IP Address</title>
+  <style>
+    body {
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    span{
+      font-size: 50px;
+      font-weight: bold;
+    }
+    .api-link {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      text-decoration: none;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Your IP:</h2>
+    <h1 id="ip-address-placeholder"></h1>
+    <h2>Your Country:</h2>
+    <div id="country-info"></div>
+  </div>
+  <a href="/My-Ip/api" class="api-link">API</a>
+  <script>
+    // Replace the placeholder with the actual IP address, country, and ISP
+    document.getElementById('ip-address-placeholder').textContent = '__IP_ADDRESS__';
+
+    var country = '__COUNTRY__';
+    if (country === ""){
+      country = "Unknown"
+      document.getElementById('country-info').innerHTML = "Unknown 🤔";
+      throw new Error("Unknown Country");
+    }
+    const countryCode = country.split(',')[0].trim().toLowerCase();
+    const flagImg = document.createElement('img');
+    flagImg.src = `https://flagcdn.com/48x36/${countryCode}.png`;
+    flagImg.alt = 'Country Flag';
+    const countryText = document.createElement('span');
+    countryText.textContent = ` ${country}`;
+    document.getElementById('country-info').appendChild(countryText);
+    document.getElementById('country-info').appendChild(flagImg);
+
+
+  </script>
+</body>
+</html>

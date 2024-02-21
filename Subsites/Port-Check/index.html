@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Port Check</title>
+  <style>
+body {
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 18px;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .open {
+      color: green;
+    }
+    .closed {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Port Check</h1>
+    <form id="portCheckForm">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        <label for="port">Port:</label>
+        <input type="number" id="port" name="port" required><br><br>
+        <button type="submit">Check Port</button>
+    </form>
+    <!-- Result will be displayed here -->
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('portCheckForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Get address and port values from form
+        const address = document.getElementById('address').value;
+        const port = document.getElementById('port').value;
+
+        // Send AJAX request to server to check port
+        fetch('/port-check', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ address, port })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display result in the result div
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = data.message || data.error;
+            resultDiv.className = data.message && data.message.toLowerCase().includes("open") ? "open" : "closed";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+  </script>
+</body>
+</html>

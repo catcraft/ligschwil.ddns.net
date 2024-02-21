@@ -1,0 +1,11 @@
+// subsites/subsite1/index.js
+module.exports = function(req, res, next) {
+  res.sendFile(path.join(__dirname, 'Mainsite', 'index.html'));
+  if (req.url === '/other') {
+    res.send(`Sub-site 1 other page`);
+  } else {
+    // Handle other routes or 404 Not Found
+    next();
+  }
+};
+
