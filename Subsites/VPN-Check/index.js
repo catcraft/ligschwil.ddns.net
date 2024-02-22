@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = function(req, res, next) {
     const requesterIP = req.ip.replace("::ffff:", "")
     // Read files in the VPN-Check directory
-    const vpnCheckDir = path.join(__dirname, "..",  "..","Data\\SubsiteData\\VPN-Check");
+    const vpnCheckDir = path.join(__dirname, "..",  "..","Data/SubsiteData/VPN-Check");
     fs.readdir(vpnCheckDir, (err, files) => {
         if (err) {
             console.error('Error reading VPN check directory:', err);

@@ -4,6 +4,7 @@ const cron = require('node-cron');
 const path = require('path');
 const { updateData } = require('./dataUpdater');
 const { updatevpngateData } = require('./vpngatedata');
+const { subscribe } = require('diagnostics_channel');
 
 // Create Express application
 const app = express();
@@ -16,8 +17,8 @@ app.get('/', (req, res) => {
 // Middleware to handle sub-site requests
 app.use('/:subsite', (req, res, next) => {
   const subSite = req.params.subsite;
-  const subSitePath = path.join(__dirname, 'subsites', subSite);
-
+  const subSitePath = path.join(__dirname, 'Subsites', subSite, 'index.js');
+  console.log(subSite, subSitePath)
   // Try to require the sub-site's main script
   try {
     const subSiteMain = require(subSitePath);
@@ -25,6 +26,7 @@ app.use('/:subsite', (req, res, next) => {
     req.url = req.url.replace(`/${subSite}`, '');
     subSiteMain(req, res, next);
   } catch (error) {
+    console.log(error)
     // Handle errors if the sub-site doesn't exist
     if (error.code === 'MODULE_NOT_FOUND') {
       // If the requested sub-site does not exist, pass to next middleware
