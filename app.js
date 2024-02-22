@@ -9,14 +9,14 @@ const { updatevpngateData } = require('./vpngatedata');
 // Create Express application
 const app = express();
 
-const debug = true
+const debug = false
 
-if (debug === false){
+
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/fullchain.pem'),
 };
-}
+
 // Define routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Mainsite', 'index.html'));
