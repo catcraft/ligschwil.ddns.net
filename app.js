@@ -2,12 +2,17 @@
 const express = require('express');
 const cron = require('node-cron');
 const path = require('path');
+const fs = require('fs');
 const { updateData } = require('./dataUpdater');
 const { updatevpngateData } = require('./vpngatedata');
-const { subscribe } = require('diagnostics_channel');
 
 // Create Express application
 const app = express();
+
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/fullchain.pem'),
+};
 
 // Define routes
 app.get('/', (req, res) => {
@@ -18,7 +23,6 @@ app.get('/', (req, res) => {
 app.use('/:subsite', (req, res, next) => {
   const subSite = req.params.subsite;
   const subSitePath = path.join(__dirname, 'Subsites', subSite, 'index.js');
-  console.log(subSite, subSitePath)
   // Try to require the sub-site's main script
   try {
     const subSiteMain = require(subSitePath);
@@ -59,23 +63,24 @@ cron.schedule('0 5 * * *', () => {
   });
 });
 
-// Start server
+// Start HTTPS server
 const PORT = process.env.PORT || 80;
-app.listen(PORT, () => {
+const server = require('https').createServer(options, app);
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-//Run updateData function immediately upon script startup
-const update = false
-if (update){
-updateData().catch(error => {
-  console.error('Error during initial data update:', error);
-});
+// Run updateData function immediately upon script startup
+const update = false;
+if (update) {
+  updateData().catch(error => {
+    console.error('Error during initial data update:', error);
+  });
 }
 
-const updatevpn = false
-if (updatevpn){
+const updatevpn = false;
+if (updatevpn) {
   updatevpngateData().catch(error => {
-  console.error('Error during initial data update:', error);
-});
+    console.error('Error during initial data update:', error);
+  });
 }
