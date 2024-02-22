@@ -21,6 +21,16 @@ const options = {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Mainsite', 'index.html'));
 });
+app.get('/stylesheet.css', (req, res) => {
+  res.sendFile(path.join(__dirname, 'Mainsite', 'stylesheet.css'));
+});
+// Middleware to handle sub-site requests
+app.use('/Main/Images/:subsite', (req, res, next) => {
+  const subSite = req.params.subsite;
+  const subSitePath = path.join(__dirname, 'Mainsite', "Images", subSite);
+  // Try to require the sub-site's main script
+  res.sendFile(subSitePath);
+});
 
 // Middleware to handle sub-site requests
 app.use('/:subsite', (req, res, next) => {
@@ -33,7 +43,6 @@ app.use('/:subsite', (req, res, next) => {
     req.url = req.url.replace(`/${subSite}`, '');
     subSiteMain(req, res, next);
   } catch (error) {
-    console.log(error)
     // Handle errors if the sub-site doesn't exist
     if (error.code === 'MODULE_NOT_FOUND') {
       // If the requested sub-site does not exist, pass to next middleware
@@ -44,11 +53,11 @@ app.use('/:subsite', (req, res, next) => {
   }
 });
 
-// Middleware to handle wildcard routes
-app.use('*', (req, res, next) => {
-  // If wildcard route reached, it means the requested sub-site does not exist
-  res.status(404).send('Page not found');
+app.engine('html', require('ejs').renderFile);
+app.use(function(req,res){
+  res.status(404).render('error.html');
 });
+
 
 // Schedule a task to run at 00:00 (midnight) every day
 cron.schedule('0 0 * * *', () => {
