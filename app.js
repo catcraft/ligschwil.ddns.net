@@ -9,11 +9,14 @@ const { updatevpngateData } = require('./vpngatedata');
 // Create Express application
 const app = express();
 
+const debug = true
+
+if (debug === false){
 const options = {
   key: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/ligschwil.ddns.net/fullchain.pem'),
 };
-
+}
 // Define routes
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Mainsite', 'index.html'));
@@ -63,12 +66,21 @@ cron.schedule('0 5 * * *', () => {
   });
 });
 
+if (debug === false){ 
 // Start HTTPS server
 const PORT = process.env.PORT || 80;
 const server = require('https').createServer(options, app);
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+}
+else
+{
+const PORT = process.env.PORT || 80;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+}
 
 // Run updateData function immediately upon script startup
 const update = false;
