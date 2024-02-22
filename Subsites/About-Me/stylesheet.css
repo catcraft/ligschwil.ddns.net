@@ -1,43 +1,50 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #1f2937;
     color: #333;
     margin: 0;
     padding: 0;
-  }
-  .container {
+}
+.container {
+    border-radius: 25px;
+    background-color: #1e293b;
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  h1 {
+}
+h1 {
+    color :whitesmoke;
+    font-weight: bold;
     margin-top: 0;
-  }
-  .tools {
+}
+h2 {
+    color :whitesmoke;
+    font-weight: bold;
+    margin-top: 0;
+}
+.tools {
+    padding: 50px;
     display: flex;
-    margin: auto;
+    margin-left: 100px;
+    margin-right: 100px;
     width: 50%;
     gap: 20px;
     align-items: center;
-  }
-  .tools img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .most-used-languages {
-    width: 50;
-    display: grid; 
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: 1fr 1fr; 
-    gap: 0px 16px; 
-    grid-template-areas: 
-      "Left Right"
-      "Left Right2"; 
-  }
-  .Left { grid-area: Left; width: 50%; }
-  .Right { grid-area: Right; width: 49%;}
-  .Right2 { grid-area: Right2; width: 49%;}
+}
+.tools img {
+    width: 100px;
+    height: 100px;
+}
+.gray-box{
+    padding: 50px;
+}
+.Statimages{
+    align-items: center;
+    float: left;
+}
+.Statimages img{
+    float: left;
+    padding: 5px;
+}
