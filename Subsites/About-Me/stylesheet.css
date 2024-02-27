@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #1f2937;
-    color: #333;
+    color: #ffffff;
     margin: 0;
     padding: 0;
 }
@@ -25,17 +25,25 @@ h2 {
     margin-top: 0;
 }
 .tools {
-    padding: 50px;
+    padding: 20px;
     display: flex;
-    margin-left: 100px;
-    margin-right: 100px;
-    width: 50%;
+    justify-content: center; /* Center the images horizontally */
     gap: 20px;
-    align-items: center;
+    flex-wrap: wrap; /* Allow the images to wrap to the next line if necessary */
+    max-width: 100%; /* Limit the width of the container */
+    overflow-x: auto; /* Add horizontal scroll if the images exceed the container width */
 }
+
 .tools img {
-    width: 100px;
-    height: 100px;
+    max-width: 100px; /* Set a maximum width for the images */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .tools img {
+        max-width: 60px; /* Reduce the maximum width for smaller screens */
+    }
 }
 .gray-box{
     padding: 50px;
