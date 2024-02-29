@@ -21,16 +21,6 @@ const options = {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'Mainsite', 'index.html'));
 });
-app.get('/stylesheet.css', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Mainsite', 'stylesheet.css'));
-});
-// Middleware to handle sub-site requests
-app.use('/Main/Images/:subsite', (req, res, next) => {
-  const subSite = req.params.subsite;
-  const subSitePath = path.join(__dirname, 'Mainsite', "Images", subSite);
-  // Try to require the sub-site's main script
-  res.sendFile(subSitePath);
-});
 
 // Middleware to handle sub-site requests
 app.use('/:subsite', (req, res, next) => {
@@ -52,6 +42,9 @@ app.use('/:subsite', (req, res, next) => {
     }
   }
 });
+
+// Define middleware to serve static files from the /Static directory
+app.use('/static', express.static(path.join(__dirname, 'Static')));
 
 app.engine('html', require('ejs').renderFile);
 app.use(function(req,res){
@@ -77,7 +70,7 @@ cron.schedule('0 5 * * *', () => {
 
 if (debug === false){ 
 // Start HTTPS server
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 443;
 const server = require('https').createServer(options, app);
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
